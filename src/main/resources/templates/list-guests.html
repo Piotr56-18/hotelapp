@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <hr>
+    <h3>List of Guests</h3>
+    <hr>
+
+    <a th:href="@{guests/addGuestForm}" class="btn btn-primary btn-sm mb-3">
+        Add Guest
+    </a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-primary">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tempGuest : ${guests}">
+            <td th:text="${tempGuest.firstName}"/>
+            <td th:text="${tempGuest.lastName}"/>
+            <td th:text="${tempGuest.age}"/>
+            <td th:text="${tempGuest.gender}"/>
+            <td>
+                <a th:href="@{guests/updateGuestForm(guestId=${tempGuest.id})}" class="btn btn-info btn-sm">Update</a>
+                <a th:href="@{guests/delete(guestId=${tempGuest.id})}" class="btn btn-danger btn-sm"
+                   onclick="if(!(confirm('Are you sure you want delete this guest?')))return false">Delete</a>
+            </td>
+
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+</body>
+</html>
