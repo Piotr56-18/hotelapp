@@ -3,10 +3,7 @@ package com.piotr.springboot.hotelapp.domain.guest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,9 +27,20 @@ public class GuestController {
         model.addAttribute("guest", guest);
         return "guest-form";
     }
+    @GetMapping("/updateGuestForm")
+    public String aupdateGuestForm(@RequestParam("guestId") Long id,  Model model){
+        Guest guest = guestService.findById(id);
+        model.addAttribute("guest", guest);
+        return "guest-form";
+    }
     @PostMapping("/save")
     public String saveGuest(@ModelAttribute("guest") Guest guest){
         guestService.save(guest);
+        return "redirect:/guests/list";
+    }
+    @GetMapping("/delete")
+    public String deleteGuest(@RequestParam("guestId") Long id){
+        guestService.deleteById(id);
         return "redirect:/guests/list";
     }
 }

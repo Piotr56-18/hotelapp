@@ -15,7 +15,7 @@
     <h3>List of Guests</h3>
     <hr>
 
-    <a th:href="@{guests/addGuestForm}" class="btn btn-primary btn-sm mb-3">
+    <a th:href="@{/guests/addGuestForm}" class="btn btn-primary btn-sm mb-3">
         Add Guest
     </a>
 
@@ -36,8 +36,8 @@
             <td th:text="${tempGuest.age}"/>
             <td th:text="${tempGuest.gender}"/>
             <td>
-                <a th:href="@{guests/updateGuestForm(guestId=${tempGuest.id})}" class="btn btn-info btn-sm">Update</a>
-                <a th:href="@{guests/delete(guestId=${tempGuest.id})}" class="btn btn-danger btn-sm"
+                <a th:href="@{/guests/updateGuestForm(guestId=${tempGuest.id})}" class="btn btn-info btn-sm">Update</a>
+                <a th:href="@{/guests/delete(guestId=${tempGuest.id})}" class="btn btn-danger btn-sm"
                    onclick="if(!(confirm('Are you sure you want delete this guest?')))return false">Delete</a>
             </td>
 
