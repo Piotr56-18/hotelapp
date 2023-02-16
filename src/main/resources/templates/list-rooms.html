@@ -1,23 +1,49 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
 <body>
-<h3>List of Rooms</h3>
-<hr>
-<table border="1">
-    <thead>
+<div class="container">
+    <hr>
+    <h3>List of Rooms</h3>
+    <hr>
+
+    <a th:href="@{/rooms/addRoomForm}" class="btn btn-primary btn-sm mb-3">
+        Add Room
+    </a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-primary">
         <tr>
             <th>Number</th>
             <th>Beds</th>
+            <th>Action</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
+
+
         <tr th:each="tempRoom : ${rooms}">
             <td th:text="${tempRoom.number}"/>
             <td th:text="${tempRoom.beds}"/>
 
-        </tr>
-    </tbody>
+            <td>
+                <a th:href="@{/rooms/updateRoomForm(roomId=${tempRoom.id})}" class="btn btn-info btn-sm">Update</a>
+                <a th:href="@{/rooms/delete(roomId=${tempRoom.id})}" class="btn btn-danger btn-sm"
+                   onclick="if(!(confirm('Are you sure you want delete this room?')))return false">Delete</a>
+            </td>
 
-</table>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
 </body>
 </html>

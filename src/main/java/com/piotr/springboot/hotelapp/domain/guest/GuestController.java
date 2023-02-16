@@ -15,6 +15,7 @@ public class GuestController {
     public GuestController(GuestService guestService) {
         this.guestService = guestService;
     }
+
     @GetMapping("/list")
     public String listGuests(Model model){
         List<Guest> guests = guestService.findAll();

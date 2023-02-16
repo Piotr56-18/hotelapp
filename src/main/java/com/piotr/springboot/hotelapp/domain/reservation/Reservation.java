@@ -3,8 +3,10 @@ package com.piotr.springboot.hotelapp.domain.reservation;
 import com.piotr.springboot.hotelapp.domain.guest.Guest;
 import com.piotr.springboot.hotelapp.domain.room.Room;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+
 
 @Entity
 public class Reservation {
@@ -17,15 +19,16 @@ public class Reservation {
     @OneToOne
     private Room room;
     @Column(name = "from_date")
-    private LocalDateTime from;
+    private Date from;
     @Column(name = "to_date")
-    private LocalDateTime to;
+    private Date to;
 
     public Reservation() {
     }
 
-    public Reservation(Long id, Guest guest, Room room, LocalDateTime from, LocalDateTime to) {
-        this.id = id;
+
+
+    public Reservation(Guest guest, Room room, Date from, Date to) {
         this.guest = guest;
         this.room = room;
         this.from = from;
@@ -56,19 +59,20 @@ public class Reservation {
         this.room = room;
     }
 
-    public LocalDateTime getFrom() {
+    public Date getFrom() {
         return from;
     }
 
-    public void setFrom(LocalDateTime from) {
+    public void setFrom(Date from) {
         this.from = from;
     }
 
-    public LocalDateTime getTo() {
+    public Date getTo() {
         return to;
     }
 
-    public void setTo(LocalDateTime to) {
+    public void setTo(Date to) {
         this.to = to;
     }
+
 }

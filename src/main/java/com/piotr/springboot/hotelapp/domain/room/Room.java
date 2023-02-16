@@ -49,4 +49,10 @@ public class Room {
     public void setBeds(List<BedType> beds) {
         this.beds = beds;
     }
+
+    @Override
+    public String toString() {
+        return "Number: " + number +
+                ", Beds: " + beds;
+    }
 }
