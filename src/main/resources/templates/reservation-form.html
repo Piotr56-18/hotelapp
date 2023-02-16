@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <hr>
+    <h3>Add new Reservation</h3>
+    <hr>
+
+    <form action="#" th:action="@{/reservations/save}"
+          th:object="${reservation}" method="POST">
+        <input type="hidden" th:field="*{id}"/>
+        <label class="fw-bold">Select guest</label>
+        <select th:field="*{guest}">
+            <div th:each="tempGuest : ${guestList}">
+                <option th:value="${tempGuest.id}" th:text="${tempGuest}"></option>
+            </div>
+        </select>
+        <br>
+        <label class="fw-bold">Select room</label>
+        <select th:field="*{room}">
+            <div th:each="tempRoom : ${roomList}">
+                <option th:value="${tempRoom.id}" th:text="${tempRoom}"></option>
+            </div>
+        </select>
+
+        <hr>
+        <h5>Date of reservation</h5>
+        <br>
+        <h5>Start of reservation</h5>
+            <div class="col-md-4 mt-2">
+                <input type="date" class="form-control" name="from" th:value="${{reservation.from}}"/>
+            </div>
+        <br>
+        <h5>End of reservation</h5>
+        <div class="col-md-4 mt-2">
+            <input type="date" class="form-control" name="to"  th:value="${{reservation.to}}"/>
+        </div>
+
+
+        <hr>
+        <button type="submit" class="btn btn-info col-2">Save</button>
+    </form>
+    <br>
+    <a th:href="@{/reservations/list}">Back to reservation list</a>
+</div>
+</body>
+</html>
