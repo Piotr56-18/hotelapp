@@ -21,20 +21,28 @@
         <label>Room Number</label>
         <input type="number" th:field="*{number}"
                class="form-control mb-4 col-4" placeholder="Number"/>
-        <h4 th:if="${#fields.hasErrors('number')}" th:errors="*{number}" class="text-danger"></h4>
         <label th:field="*{beds}">Select Beds in Room</label>
-        <h4 th:if="${#fields.hasErrors('beds')}" th:errors="*{beds}" class="text-danger"></h4>
-        <fieldset th:each="bed, bedStat : *{beds}">
-            <select th:field="*{beds[__${bedStat.index}__]}">
+
+            <select th:field="*{beds}">
                 <option value="">None</option>
                 <option value="SINGLE">Single</option>
                 <option value="DOUBLE">Double</option>
                 <option value="KING_SIZE">King Size</option>
             </select>
-        </fieldset>
-        <div>
-            <button type="submit" name="addBed">Add bed</button>
-        </div>
+            <select th:field="*{beds}">
+                <option value="" selected>None</option>
+                <option value="SINGLE">Single</option>
+                <option value="DOUBLE">Double</option>
+                <option value="KING_SIZE">King Size</option>
+            </select>
+            <select th:field="*{beds}">
+                <option value="" selected>None</option>
+                <option value="SINGLE">Single</option>
+                <option value="DOUBLE">Double</option>
+                <option value="KING_SIZE">King Size</option>
+            </select>
+
+
 
         <hr>
         <button type="submit" class="btn btn-info col-2">Save</button>

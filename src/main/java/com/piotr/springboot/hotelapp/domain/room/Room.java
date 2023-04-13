@@ -1,17 +1,23 @@
 package com.piotr.springboot.hotelapp.domain.room;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
 @Entity
+@Table(name = "room")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "number")
+    @Min(1)
     private int number;
+    @NotNull(message = "Room should have at last one bed!")
     @Column(name = "beds")
     @ElementCollection(targetClass = BedType.class)
     @Enumerated(EnumType.STRING)
