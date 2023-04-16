@@ -37,14 +37,15 @@
         <br>
         <h5>Start of reservation</h5>
             <div class="col-md-4 mt-2">
-                <input type="date" class="form-control" name="from" th:value="${{reservation.from}}"/>
+                <input type="date" class="form-control" name="from" th:value="${{reservation.from}}" required/>
             </div>
+        <h4 th:if="${#fields.hasErrors('from')}" th:errors="*{from}" class="text-danger"></h4>
         <br>
         <h5>End of reservation</h5>
         <div class="col-md-4 mt-2">
-            <input type="date" class="form-control" name="to"  th:value="${{reservation.to}}"/>
+            <input type="date" class="form-control" name="to"  th:value="${{reservation.to}}" required/>
         </div>
-
+        <h4 th:if="${#fields.hasErrors('to')}" th:errors="*{to}" class="text-danger"></h4>
 
         <hr>
         <button type="submit" class="btn btn-info col-2">Save</button>

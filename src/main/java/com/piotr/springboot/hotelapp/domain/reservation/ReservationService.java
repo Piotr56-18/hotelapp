@@ -1,10 +1,12 @@
 package com.piotr.springboot.hotelapp.domain.reservation;
 
 import com.piotr.springboot.hotelapp.domain.guest.GuestService;
+import com.piotr.springboot.hotelapp.domain.room.Room;
 import com.piotr.springboot.hotelapp.domain.room.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +37,7 @@ public class ReservationService {
         }
         return reservation;
     }
+
     public void save (Reservation reservation){
         reservationRepository.save(reservation);
     }

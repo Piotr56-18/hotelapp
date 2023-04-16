@@ -1,15 +1,10 @@
 package com.piotr.springboot.hotelapp.domain.room;
 
-import com.piotr.springboot.hotelapp.domain.guest.Guest;
-import com.piotr.springboot.hotelapp.util.RoomNumberValidator;
 import jakarta.validation.Valid;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -41,7 +36,7 @@ public class RoomController {
     public String aupdateRoomForm(@RequestParam("roomId") Long id,  Model model){
         Room room = roomService.findById(id);
         model.addAttribute("room", room);
-        return "room-form";
+        return "update-room-form";
     }
     @PostMapping("/save")
     public String saveRoom(@ModelAttribute("room") @Valid Room room, BindingResult bindingResult){
@@ -49,8 +44,17 @@ public class RoomController {
          bindingResult.rejectValue("number", "error.number","Room number already exist!");
          return "room-form";
         }
+
         if(bindingResult.hasErrors()){
             return "room-form";
+        }
+        roomService.save(room);
+        return "redirect:/rooms/list";
+    }
+    @PostMapping("/update")
+    public String updateRoom(@ModelAttribute("room") @Valid Room room, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "update-room-form";
         }
         roomService.save(room);
         return "redirect:/rooms/list";
@@ -62,6 +66,11 @@ public class RoomController {
         }
         room.getBeds().add(BedType.SINGLE);
         return "room-form";
+    }
+    @PostMapping(path = "/update",params = "addBed")
+    public String addBedUpdate(@ModelAttribute("room") Room room){
+        room.getBeds().add(BedType.SINGLE);
+        return "update-room-form";
     }
     @GetMapping("/delete")
     public String deleteRoom(@RequestParam("roomId") Long id){

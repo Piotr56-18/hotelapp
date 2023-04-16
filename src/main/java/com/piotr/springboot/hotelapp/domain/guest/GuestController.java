@@ -1,8 +1,10 @@
 package com.piotr.springboot.hotelapp.domain.guest;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,7 +37,10 @@ public class GuestController {
         return "guest-form";
     }
     @PostMapping("/save")
-    public String saveGuest(@ModelAttribute("guest") Guest guest){
+    public String saveGuest(@ModelAttribute("guest") @Valid Guest guest, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "guest-form";
+        }
         guestService.save(guest);
         return "redirect:/guests/list";
     }

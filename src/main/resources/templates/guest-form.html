@@ -21,12 +21,15 @@
         <label>First Name</label>
         <input type="text" th:field="*{firstName}"
                class="form-control mb-4 col-4" placeholder="First Name"/>
+        <h4 th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></h4>
         <label>Last Name</label>
         <input type="text" th:field="*{lastName}"
                class="form-control mb-4 col-4" placeholder="Last Name"/>
+        <h4 th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></h4>
         <label>Age</label>
         <input type="number" th:field="*{age}"
                class="form-control mb-4 col-4" placeholder="Age"/>
+        <h4 th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="text-danger"></h4>
         <label th:field="*{gender}">Select you gender</label>
         <select th:field="*{gender}">
             <option value="" selected></option>

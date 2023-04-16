@@ -1,18 +1,23 @@
 package com.piotr.springboot.hotelapp.domain.room;
 
+import com.piotr.springboot.hotelapp.domain.reservation.Reservation;
+import com.piotr.springboot.hotelapp.domain.reservation.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class RoomService {
     private RoomRepository roomRepository;
+    private ReservationRepository reservationRepository;
 
     @Autowired
-    public RoomService(RoomRepository roomRepository) {
+    public RoomService(RoomRepository roomRepository, ReservationRepository reservationRepository) {
         this.roomRepository = roomRepository;
+        this.reservationRepository = reservationRepository;
     }
     public List<Room> findAll(){
         return roomRepository.findAll();
@@ -26,6 +31,31 @@ public class RoomService {
         }else{
             throw new RuntimeException("Don't find room id: " + id);
         }
+    }
+    public List<Room>getAvailableRooms(LocalDate from, LocalDate to){
+        if (from.isAfter(to)){
+            throw  new IllegalArgumentException("Start date cant be after end date");
+        }
+        if((from==null)||(to==null)){
+            throw new IllegalArgumentException("You must select start date end end date!");
+        }
+        List<Room>availableRooms = this.findAll();
+        List<Reservation>reservations=reservationRepository.findAll();
+
+        for(Reservation reservation:reservations){
+            if(reservation.getFrom().equals(from)){
+                availableRooms.remove(reservation.getRoom());
+            }else if(reservation.getTo().equals(to)){
+                availableRooms.remove(reservation.getRoom());
+            }else if(reservation.getFrom().isAfter(from)&&reservation.getFrom().isBefore(to)){
+                availableRooms.remove(reservation.getRoom());
+            }else if(reservation.getTo().isAfter(from)&&reservation.getFrom().isBefore(to)){
+                availableRooms.remove(reservation.getRoom());
+            }else if(from.isAfter(reservation.getFrom())&&to.isBefore(reservation.getTo())){
+                availableRooms.remove(reservation.getRoom());
+            }
+        }
+        return availableRooms;
     }
     public void save (Room room){
         roomRepository.save(room);

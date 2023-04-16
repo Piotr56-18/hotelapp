@@ -1,6 +1,7 @@
 package com.piotr.springboot.hotelapp.domain.guest;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Guest {
@@ -9,10 +10,14 @@ public class Guest {
     @Column(name = "id")
     private Long id;
     @Column(name = "first_name")
+    @NotBlank(message = "Enter your first name")
     private String firstName;
     @Column(name = "last_name")
+    @NotBlank(message = "Enter your surname")
     private String lastName;
     @Column(name = "age")
+    @Min(1)
+    @Max(120)
     private int age;
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")

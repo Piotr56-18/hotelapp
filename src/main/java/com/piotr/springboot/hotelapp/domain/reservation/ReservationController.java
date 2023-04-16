@@ -5,10 +5,12 @@ import com.piotr.springboot.hotelapp.domain.guest.GuestService;
 import com.piotr.springboot.hotelapp.domain.room.Room;
 import com.piotr.springboot.hotelapp.domain.room.RoomService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 
