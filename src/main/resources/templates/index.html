@@ -4,7 +4,7 @@
     <title>Moja strona</title>
     <style>
         body {
-            background-image: url('D:/Java - projects/hotelapp/src/main/resources/images/img.png');
+            background-image: url("/images/img_1.png");
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -36,7 +36,10 @@
 </head>
 <body>
 <div class="button-container">
-    <button>Rezerwuj</button>
+    <button>
+        <a th:href="@{/reservations/createReservationDate}" class="btn btn-info btn-sm">Create Reservation</a>
+    </button>
+
 </div>
 
 <div class="signin-button">

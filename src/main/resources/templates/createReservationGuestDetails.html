@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+
+<div class="container">
+    <hr>
+    <h3>Select Room</h3>
+    <hr>
+    <form th:action="@{/reservations/createReservationSuccess}" th:object="${reservationDTO}" method="POST">
+        <input type="hidden" name="reservationDTO" th:field="${reservationDTO}"/>
+        <input type="hidden" th:field="*{from}"/>
+        <input type="hidden" th:field="*{to}"/>
+        <input type="hidden" th:field="*{roomId}"/>
+        <br>
+        <label  class="fw-bold">Enter Your Data</label>
+        <label  class="fw-bold">Enter First Name</label>
+        <input type="text" th:field="*{guestDTO.firstName}"
+               class="form-control mb-4 col-4" placeholder="First Name" required/>
+        <label  class="fw-bold">Enter Last Name</label>
+        <input type="text" th:field="*{guestDTO.lastName}"
+               class="form-control mb-4 col-4" placeholder="First Name" required/>
+        <label>Age</label>
+        <input type="number" th:field="*{guestDTO.age}"
+               class="form-control mb-4 col-4" placeholder="Age" required/>
+        <label  class="fw-bold">Select Gender</label>
+        <select name="gender" th:field="*{guestDTO.gender}" required>
+            <option value="" selected>--Select your gender--</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+            </option>
+        </select>
+        <br>
+        <form th:action="@{/reservations/createReservationSuccess(reservationDTO=${reservationDTO})}" method="POST">
+            <input type="hidden" name="_method" value="POST"/>
+            <button type="submit" class="btn btn-info btn-sm">Go to room choosing menu</button>
+        </form>
+        <!--button type="submit" class="btn btn-info btn-sm">Apply</button-->
+    </form>
+
+    </form>
+    <br>
+    <a th:href="@{/reservations/createReservationGuestDetails}">Back to room selection</a>
+</div>
+
+
+</body>
+</html>
