@@ -24,6 +24,8 @@
     <div class="col-md-4 mt-2">
         <input type="date" class="form-control" name="to" required/>
     </div>
+    <br>
+    <p th:if="${errorOccurred}" th:text="${errorMessage}"></p>
 
     <form th:action="@{/reservations/createReservationRoomChoosing(from=${from}, to=${to})}" method="POST">
         <input type="hidden" name="_method" value="POST"/>

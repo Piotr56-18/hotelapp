@@ -3,6 +3,10 @@ package com.piotr.springboot.hotelapp.domain.room;
 import com.piotr.springboot.hotelapp.domain.reservation.Reservation;
 import com.piotr.springboot.hotelapp.domain.reservation.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,6 +23,16 @@ public class RoomService {
         this.roomRepository = roomRepository;
         this.reservationRepository = reservationRepository;
     }
+    public Page<Room>findPaginated(int pageNo, int pageSize){
+        Pageable pageable = PageRequest.of(pageNo-1,pageSize);
+        return this.roomRepository.findAll(pageable);
+    }
+    public Page<Room>findPaginated(int pageNo, int pageSize, String sortField, String sortDirection){
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortField).ascending():Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNo-1,pageSize, sort);
+        return this.roomRepository.findAll(pageable);
+    }
+
     public List<Room> findAll(){
         return roomRepository.findAll();
     }

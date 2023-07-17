@@ -8,6 +8,7 @@ import com.piotr.springboot.hotelapp.domain.room.RoomService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -38,40 +39,71 @@ public class ReservationController {
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, null, new CustomDateEditor(dateFormat, true));
     }
-
+    /*
     @GetMapping("/list")
     public String listReservations(Model model){
         List<Reservation> reservations = reservationService.findAll();
         model.addAttribute("reservations", reservations);
         return "list-reservations";
     }
+
+    @GetMapping("/list")
+    public String listReservations(Model model){
+        return findPaginated(1,model);
+    }
+
+    @GetMapping("/list/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model){
+        int pageSize = 3;
+        Page<Reservation> page = reservationService.findPaginated(pageNo,pageSize);
+        List<Reservation>reservations = page.getContent();
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("reservations", reservations);
+        return "list-reservations";
+    }
+     */
+    @GetMapping("/list/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model){
+        int pageSize = 3;
+        Page<Reservation> page = reservationService.findPaginated(pageNo,pageSize, sortField,sortDir);
+        List<Reservation>reservations = page.getContent();
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc")?"desc":"asc");
+
+        model.addAttribute("reservations", reservations);
+        return "list-reservations";
+    }
+    @GetMapping("/list")
+    public String listReservations(Model model){
+        return findPaginated(1,"from", "asc", model);
+    }
     @GetMapping("/createReservationDate")
     public String createReservationDate(){
         System.out.println("Choose start and end of reservation!");
         return "createReservationDate";
     }
-    /*
     @PostMapping(value = "/createReservationRoomChoosing")
     public String createReservationRoomChoosing(ReservationDTO reservationDTO, Model model){
-        List<Room>rooms = roomService.getAvailableRooms(reservationDTO.getFrom(), reservationDTO.getTo());
-        reservationDTO.setRoomId(1L);
-        model.addAttribute("rooms", rooms);
-        model.addAttribute("room", reservationDTO.getRoomId());
-        model.addAttribute("from", reservationDTO.getFrom());
-        model.addAttribute("to", reservationDTO.getTo());
-        System.out.println(reservationDTO.getTo());
-        System.out.println("Choose room!");
-        return "createReservationRoomChoosing";
-    }
-    */
-    @PostMapping(value = "/createReservationRoomChoosing")
-    public String createReservationRoomChoosing(ReservationDTO reservationDTO, Model model){
-        List<Room>rooms = roomService.getAvailableRooms(reservationDTO.getFrom(), reservationDTO.getTo());
-        model.addAttribute("rooms", rooms);
-        model.addAttribute("reservationDTO", reservationDTO); // przekazujesz obiekt reservationDTO z ustawionym roomId
-        System.out.println(reservationDTO.getTo());
-        System.out.println("Choose room!");
-        return "createReservationRoomChoosing";
+        try {
+            List<Room> rooms = roomService.getAvailableRooms(reservationDTO.getFrom(), reservationDTO.getTo());
+            model.addAttribute("rooms", rooms);
+            model.addAttribute("reservationDTO", reservationDTO);
+            return "createReservationRoomChoosing";
+        }catch (IllegalArgumentException e){
+            model.addAttribute("errorMessage", "Error occurred!" + e.getMessage());
+            model.addAttribute("errorOccurred", true);
+            return "createReservationDate";
+        }
     }
 
     @PostMapping(value = "/createReservationGuestDetails")
