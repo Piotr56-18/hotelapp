@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Moja strona</title>
     <style>
@@ -26,10 +26,15 @@
             cursor: pointer;
         }
 
-        .signin-button {
+        .logout-button {
             position: absolute;
             top: 16px;
             right: 16px;
+        }
+        .admin-button {
+            position: absolute;
+            top: 16px;
+            left: 16px;
         }
 
     </style>
@@ -37,13 +42,34 @@
 <body>
 <div class="button-container">
     <button>
-        <a th:href="@{/reservations/createReservationDate}" class="btn btn-info btn-sm">Create Reservation</a>
+        <a th:href="@{/reservationsWizard/createReservationDate}" class="btn btn-info btn-sm">Create Reservation</a>
     </button>
 
 </div>
 
-<div class="signin-button">
-    <button>Sign in</button>
+<div class="logout-button">
+    <form action="#" th:action="@{/logout}" method="POST">
+        <input type="submit" value="Logout"/>
+    </form>
+    <p>
+        User: <span sec:authentication="principal.username"></span>
+        <br><br>
+        Role: <span sec:authentication="principal.authorities"></span>
+    </p>
+</div>
+
+<div sec:authorize="hasRole('ADMIN')" class="admin-button">
+    <button>
+        <a th:href="@{/reservations/list}" class="btn btn-info btn-sm">List of All Reservations</a>
+    </button>
+    <br><br>
+    <button>
+        <a th:href="@{/guests/list}" class="btn btn-info btn-sm">List of All Guests</a>
+    </button>
+    <br><br>
+    <button>
+        <a th:href="@{/rooms/list}" class="btn btn-info btn-sm">List of All Rooms</a>
+    </button>
 </div>
 
 </body>

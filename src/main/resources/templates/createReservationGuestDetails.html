@@ -16,7 +16,7 @@
     <hr>
     <h3>Select Room</h3>
     <hr>
-    <form th:action="@{/reservations/createReservationSuccess}" th:object="${reservationDTO}" method="POST">
+    <form th:action="@{/reservationsWizard/createReservationSuccess}" th:object="${reservationDTO}" method="POST">
         <input type="hidden" name="reservationDTO" th:field="${reservationDTO}"/>
         <input type="hidden" th:field="*{from}"/>
         <input type="hidden" th:field="*{to}"/>
@@ -40,16 +40,20 @@
             </option>
         </select>
         <br>
-        <form th:action="@{/reservations/createReservationSuccess(reservationDTO=${reservationDTO})}" method="POST">
+        <form th:action="@{/reservationsWizard/createReservationSuccess(reservationDTO=${reservationDTO})}" method="POST">
             <input type="hidden" name="_method" value="POST"/>
-            <button type="submit" class="btn btn-info btn-sm">Go to room choosing menu</button>
+            <button type="submit" class="btn btn-info btn-sm">Go to summary</button>
         </form>
         <!--button type="submit" class="btn btn-info btn-sm">Apply</button-->
     </form>
 
     </form>
     <br>
-    <a th:href="@{/reservations/createReservationGuestDetails}">Back to room selection</a>
+    <!--a th:href="@{/reservationsWizard/createReservationRoomChoosing(reservationDTO=${reservationDTO})}">Go to room choosing menu</a-->
+    <form th:action="@{/reservationsWizard/createReservationRoomChoosing(from=${reservationDTO.from}, to=${reservationDTO.to})}" method="POST">
+        <input type="hidden" name="_method" value="POST"/>
+        <button type="submit" class="btn btn-info btn-sm">Go to room choosing menu</button>
+    </form>
 </div>
 
 

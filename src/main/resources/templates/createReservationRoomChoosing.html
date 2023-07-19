@@ -17,7 +17,7 @@
     <h3>Select Room</h3>
     <hr>
 
-    <form th:action="@{/reservations/createReservationGuestDetails}" method="POST">
+    <form th:action="@{/reservationsWizard/createReservationGuestDetails}" method="POST">
         <input type="hidden" th:field="${reservationDTO.from}"/>
         <input type="hidden" th:field="${reservationDTO.to}"/>
         <br>
@@ -34,7 +34,7 @@
 
     </form>
     <br>
-    <a th:href="@{/reservations/createReservationDate}">Back to date selection</a>
+    <a th:href="@{/reservationsWizard/createReservationDate}">Back to date selection</a>
 </div>
 
 

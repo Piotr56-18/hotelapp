@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="container">
-<form class="form-horizontal" th:action="@{/reservations/createReservationRoomChoosing}" method="POST" >
+<form class="form-horizontal" th:action="@{/reservationsWizard/createReservationRoomChoosing}" method="POST" >
     <hr>
     <h5>Date of reservation</h5>
     <br>
@@ -27,7 +27,7 @@
     <br>
     <p th:if="${errorOccurred}" th:text="${errorMessage}"></p>
 
-    <form th:action="@{/reservations/createReservationRoomChoosing(from=${from}, to=${to})}" method="POST">
+    <form th:action="@{/reservationsWizard/createReservationRoomChoosing(from=${from}, to=${to})}" method="POST">
         <input type="hidden" name="_method" value="POST"/>
         <button type="submit" class="btn btn-info btn-sm">Go to room choosing menu</button>
     </form>

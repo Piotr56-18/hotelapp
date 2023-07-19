@@ -1,7 +1,6 @@
 package com.piotr.springboot.hotelapp.domain.reservation;
 
 import com.piotr.springboot.hotelapp.domain.guest.Guest;
-import com.piotr.springboot.hotelapp.domain.guest.GuestDTO;
 import com.piotr.springboot.hotelapp.domain.guest.GuestService;
 import com.piotr.springboot.hotelapp.domain.room.Room;
 import com.piotr.springboot.hotelapp.domain.room.RoomService;
@@ -87,56 +86,6 @@ public class ReservationController {
     public String listReservations(Model model){
         return findPaginated(1,"from", "asc", model);
     }
-    @GetMapping("/createReservationDate")
-    public String createReservationDate(){
-        System.out.println("Choose start and end of reservation!");
-        return "createReservationDate";
-    }
-    @PostMapping(value = "/createReservationRoomChoosing")
-    public String createReservationRoomChoosing(ReservationDTO reservationDTO, Model model){
-        try {
-            List<Room> rooms = roomService.getAvailableRooms(reservationDTO.getFrom(), reservationDTO.getTo());
-            model.addAttribute("rooms", rooms);
-            model.addAttribute("reservationDTO", reservationDTO);
-            return "createReservationRoomChoosing";
-        }catch (IllegalArgumentException e){
-            model.addAttribute("errorMessage", "Error occurred!" + e.getMessage());
-            model.addAttribute("errorOccurred", true);
-            return "createReservationDate";
-        }
-    }
-
-    @PostMapping(value = "/createReservationGuestDetails")
-    public String createReservationGuestDetails(@RequestParam("from") LocalDate from,
-                                                @RequestParam("to") LocalDate to,
-                                                @RequestParam("roomId") Long roomId,
-                                                Model model){
-        ReservationDTO reservationDTO = new ReservationDTO(from, to, roomId);
-        model.addAttribute("reservationDTO", reservationDTO);
-        System.out.println("=================================");
-        System.out.println(from);
-        System.out.println(to);
-        System.out.println(roomId);
-        return "createReservationGuestDetails";
-    }
-    @PostMapping(value = "/createReservationSuccess")
-    public String createReservationSuccess(@ModelAttribute("reservationDTO") ReservationDTO reservationDTO,
-                                           Model model){
-        Guest guest = new Guest(reservationDTO.getGuestDTO().getFirstName(),
-                reservationDTO.getGuestDTO().getLastName(), reservationDTO.getGuestDTO().getAge(),
-                reservationDTO.getGuestDTO().getGender());
-        guestService.save(guest);
-        reservationService.save(new Reservation(guest,roomService.findById(reservationDTO.getRoomId()), reservationDTO.getFrom(), reservationDTO.getTo()));
-        model.addAttribute("reservationDTO", reservationDTO);
-        model.addAttribute("roomNumber", roomService.findById(reservationDTO.getRoomId()).getNumber());
-        System.out.println("=================================");
-        System.out.println(reservationDTO.getGuestDTO().getAge());
-        System.out.println(reservationDTO.getGuestDTO().getFirstName());
-        System.out.println(reservationDTO.getGuestDTO().getLastName());
-        System.out.println(reservationDTO.getGuestDTO().getGender());
-        return "createReservationSuccess";
-    }
-
     @GetMapping("/addReservationForm")
     public String addReservationForm(Model model){
         Reservation reservation = new Reservation();
