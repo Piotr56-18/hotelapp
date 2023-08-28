@@ -8,31 +8,68 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-image: url("/images/img.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 </head>
 <body>
 
-
-<div class="container">
-    <hr>
+<div class="container mt-4">
     <h3>Congratulations! You created reservation!</h3>
     <hr>
-    <h3>Reservation Data:</h3>
-    <label>Start Date:</label><input type="date" th:value="${reservationDTO.from}" th:readonly="readonly"></input>
-    <label>End Date:</label><input type="date" th:value="${reservationDTO.to}" th:readonly="readonly"></input>
-    <hr>
-    <h3>Guest Data:</h3>
-    <label>First Name:</label><input type="text" th:value="${reservationDTO.guestDTO.firstName}" th:readonly="readonly"></input>
-    <label>Last Name:</label><input type="text" th:value="${reservationDTO.guestDTO.lastName}" th:readonly="readonly"></input>
-    <label>Age:</label><input type="text" th:value="${reservationDTO.guestDTO.age}" th:readonly="readonly"></input>
-    <label>Gender:</label><input type="text" th:value="${reservationDTO.guestDTO.gender}" th:readonly="readonly"></input>
-    <hr>
-    <h3>Room Data:</h3>
-    <label>Room Number:</label><input type="text" th:value="${roomNumber}" th:readonly="readonly"></input>
-    <hr>
-    <a th:href="@{/}">Back To Main Page</a>
-</div>
-</div>
 
+    <h3>Reservation Data:</h3>
+    <div class="row mb-3">
+        <label class="col-md-2">Start Date:</label>
+        <div class="col-md-4">
+            <input type="date" th:value="${reservationDTO.from}" readonly class="form-control">
+        </div>
+        <label class="col-md-2">End Date:</label>
+        <div class="col-md-4">
+            <input type="date" th:value="${reservationDTO.to}" readonly class="form-control">
+        </div>
+    </div>
+    <hr>
+
+    <h3>Guest Data:</h3>
+    <div class="row mb-3">
+        <label class="col-md-2">First Name:</label>
+        <div class="col-md-4">
+            <input type="text" th:value="${reservationDTO.guestDTO.firstName}" readonly class="form-control">
+        </div>
+        <label class="col-md-2">Last Name:</label>
+        <div class="col-md-4">
+            <input type="text" th:value="${reservationDTO.guestDTO.lastName}" readonly class="form-control">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2">Age:</label>
+        <div class="col-md-4">
+            <input type="text" th:value="${reservationDTO.guestDTO.age}" readonly class="form-control">
+        </div>
+        <label class="col-md-2">Gender:</label>
+        <div class="col-md-4">
+            <input type="text" th:value="${reservationDTO.guestDTO.gender}" readonly class="form-control">
+        </div>
+    </div>
+    <hr>
+
+    <h3>Room Data:</h3>
+    <div class="row mb-3">
+        <label class="col-md-2">Room Number:</label>
+        <div class="col-md-10">
+            <input type="text" th:value="${roomNumber}" readonly class="form-control">
+        </div>
+    </div>
+    <hr>
+
+    <a th:href="@{/}" class="btn btn-info btn-sm">Back To Main Page</a>
+</div>
 
 </body>
 </html>

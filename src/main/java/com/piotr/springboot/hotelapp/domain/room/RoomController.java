@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,35 +20,7 @@ public class RoomController {
     public RoomController(RoomService roomService) {
         this.roomService = roomService;
     }
-    /*
-    @GetMapping("/list")
-    public String listRooms(Model model){
-        List<Room> rooms = roomService.findAll();
-        model.addAttribute("rooms", rooms);
-        return "list-rooms";
-    }
 
-    @GetMapping("/list")
-    public String listRooms(Model model){
-        return findPaginated(1,model);
-    }
-    @GetMapping("/list/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model){
-        int pageSize = 5;
-        Page<Room>page = roomService.findPaginated(pageNo,pageSize);
-        List<Room>rooms = page.getContent();
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("rooms", rooms);
-        return "list-rooms";
-    }
-    */
-
-    @GetMapping("/list")
-    public String listRooms(Model model){
-        return findPaginated(1,"number", "asc", model);
-    }
     @GetMapping("/list/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
                                 @RequestParam("sortField") String sortField,
@@ -69,15 +40,15 @@ public class RoomController {
         model.addAttribute("rooms", rooms);
         return "list-rooms";
     }
-
     @GetMapping("/addRoomForm")
     public String addRoomForm(Model model){
         Room room = new Room();
         model.addAttribute("room", room);
         return "room-form";
     }
+
     @GetMapping("/updateRoomForm")
-    public String aupdateRoomForm(@RequestParam("roomId") Long id,  Model model){
+    public String updateRoomForm(@RequestParam("roomId") Long id,  Model model){
         Room room = roomService.findById(id);
         model.addAttribute("room", room);
         return "update-room-form";
@@ -121,4 +92,32 @@ public class RoomController {
         roomService.deleteById(id);
         return "redirect:/rooms/list";
     }
+    @GetMapping("/list")
+    public String listRooms(Model model){
+        return findPaginated(1,"number", "asc", model);
+    }
+    /*
+    @GetMapping("/list")
+    public String listRooms(Model model){
+        List<Room> rooms = roomService.findAll();
+        model.addAttribute("rooms", rooms);
+        return "list-rooms";
+    }
+
+    @GetMapping("/list")
+    public String listRooms(Model model){
+        return findPaginated(1,model);
+    }
+    @GetMapping("/list/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model){
+        int pageSize = 5;
+        Page<Room>page = roomService.findPaginated(pageNo,pageSize);
+        List<Room>rooms = page.getContent();
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("rooms", rooms);
+        return "list-rooms";
+    }
+    */
 }

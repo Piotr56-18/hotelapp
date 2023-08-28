@@ -1,6 +1,4 @@
 package com.piotr.springboot.hotelapp.domain.guest;
-
-import com.piotr.springboot.hotelapp.domain.reservation.Reservation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,45 +6,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/guests")
 public class GuestController {
     private GuestService guestService;
+    private Logger logger = Logger.getLogger(getClass().getName());
     @Autowired
     public GuestController(GuestService guestService) {
         this.guestService = guestService;
-    }
-    /* Without pagination
-    @GetMapping("/list")
-    public String listGuests(Model model){
-        List<Guest> guests = guestService.findAll();
-        model.addAttribute("guests", guests);
-        return "list-guests";
-    }
-     // Without soring
-    @GetMapping("/list")
-    public String listGuests(Model model){
-        return findPaginated(1,model);
-    }
-    // Without sorting
-    @GetMapping("/list/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model){
-        int pageSize = 4;
-        Page<Guest> page = guestService.findPaginated(pageNo,pageSize);
-        List<Guest>guests = page.getContent();
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("guests", guests);
-        return "list-guests";
-    }
-     */
-    @GetMapping("/list")
-    public String listGuests(Model model){
-        return findPaginated(1, "lastName", "asc", model);//default sorting
     }
     @GetMapping("/list/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
@@ -92,4 +62,33 @@ public class GuestController {
         guestService.deleteById(id);
         return "redirect:/guests/list";
     }
+    @GetMapping("/list")
+    public String listGuests(Model model){
+        return findPaginated(1, "lastName", "asc", model);//default sorting
+    }
+    /* Without pagination
+    @GetMapping("/list")
+    public String listGuests(Model model){
+        List<Guest> guests = guestService.findAll();
+        model.addAttribute("guests", guests);
+        return "list-guests";
+    }
+     // Without soring
+    @GetMapping("/list")
+    public String listGuests(Model model){
+        return findPaginated(1,model);
+    }
+    // Without sorting
+    @GetMapping("/list/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model){
+        int pageSize = 4;
+        Page<Guest> page = guestService.findPaginated(pageNo,pageSize);
+        List<Guest>guests = page.getContent();
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("guests", guests);
+        return "list-guests";
+    }
+     */
 }

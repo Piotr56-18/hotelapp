@@ -23,6 +23,7 @@ public class RoomService {
         this.roomRepository = roomRepository;
         this.reservationRepository = reservationRepository;
     }
+    public RoomService(){};
     public Page<Room>findPaginated(int pageNo, int pageSize){
         Pageable pageable = PageRequest.of(pageNo-1,pageSize);
         return this.roomRepository.findAll(pageable);

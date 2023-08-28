@@ -11,18 +11,12 @@
         }
         h2 {
             background-color: #333;
-            color: white;
+            color: red;
             padding: 10px;
             text-align: center;
             margin: 0;
         }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
+
         hr {
             border: 0;
             border-top: 1px solid #ccc;
@@ -39,17 +33,11 @@
     </style>
 </head>
 <body>
-<h2>User registered successfully!</h2>
-
-<ul>
-	<li th:text="'User name: ' + ${webUser.userName}"></li>
-	<li th:text="'First name: ' + ${webUser.firstName}"></li>
-	<li th:text="'Last name: ' + ${webUser.lastName}"></li>
-	<li th:text="'Email: ' + ${webUser.email}"></li>
-</ul>
+<h2>User with this username already exist!</h2>
 
 <hr>
 
-<a th:href="@{/showLoginPage}">Login with new user name</a>
+<a th:href="@{/register/showRegistrationForm}">Try choose different username</a>
+<a th:href="@{/showLoginPage}">Back to login page</a>
 </body>
 </html>

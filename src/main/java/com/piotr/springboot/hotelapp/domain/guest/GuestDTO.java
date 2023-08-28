@@ -1,9 +1,6 @@
 package com.piotr.springboot.hotelapp.domain.guest;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 
 public class GuestDTO {
     private String firstName;

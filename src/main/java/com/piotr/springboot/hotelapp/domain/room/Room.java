@@ -1,10 +1,7 @@
 package com.piotr.springboot.hotelapp.domain.room;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
 import java.util.List;
 
 @Entity
@@ -31,7 +28,6 @@ public class Room {
         this.number = number;
         this.beds = beds;
     }
-
     public Long getId() {
         return id;
     }

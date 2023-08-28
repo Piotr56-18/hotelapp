@@ -64,7 +64,7 @@ public class RegistrationController {
             theModel.addAttribute("registrationError", "User name already exists.");
 
             logger.warning("User name already exists.");
-            return "register/registration-form";
+            return "register/registration-error";
         }
 
         // create user account and store in the databse

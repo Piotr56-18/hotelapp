@@ -1,7 +1,6 @@
 package com.piotr.springboot.hotelapp.domain.reservation;
 
 import com.piotr.springboot.hotelapp.domain.guest.GuestService;
-import com.piotr.springboot.hotelapp.domain.room.Room;
 import com.piotr.springboot.hotelapp.domain.room.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,8 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +53,16 @@ public class ReservationService {
     }
     public void deleteById(Long id){
         reservationRepository.deleteById(id);
+    }
+    public Reservation findReservationByGuestId(Long id){
+        Optional<Reservation> result = reservationRepository.findReservationByGuestId(id);
+        Reservation reservation = null;
+        if(result.isPresent()){
+            reservation = result.get();
+        }else{
+            throw  new RuntimeException("Don't find reservation with guest id: " + id);
+        }
+        return reservation;
     }
 }
 

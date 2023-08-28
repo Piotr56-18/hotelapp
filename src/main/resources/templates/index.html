@@ -17,13 +17,15 @@
             text-align: center;
         }
 
-        .button-container button {
+        .btn-primary {
             font-size: 24px;
             padding: 16px 32px;
             border: none;
-            background-color: #007bff;
-            color: #fff;
             cursor: pointer;
+        }
+        .btn-primary a {
+            color: #fff;
+            text-decoration: none;
         }
 
         .logout-button {
@@ -38,18 +40,17 @@
         }
 
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
 <div class="button-container">
-    <button>
-        <a th:href="@{/reservationsWizard/createReservationDate}" class="btn btn-info btn-sm">Create Reservation</a>
-    </button>
-
+    <a th:href="@{/reservationsWizard/createReservationDate}" class="btn btn-primary btn-lg">Create Reservation</a>
 </div>
 
 <div class="logout-button">
     <form action="#" th:action="@{/logout}" method="POST">
-        <input type="submit" value="Logout"/>
+        <input type="submit" value="Logout" class="btn btn-primary btn-sm" />
     </form>
     <p>
         User: <span sec:authentication="principal.username"></span>
@@ -59,20 +60,12 @@
 </div>
 
 <div sec:authorize="hasRole('ADMIN')" class="admin-button">
-    <button>
-        <a th:href="@{/reservations/list}" class="btn btn-info btn-sm">List of All Reservations</a>
-    </button>
+    <a th:href="@{/reservations/list}" class="btn btn-primary btn-sm">List of All Reservations</a>
     <br><br>
-    <button>
-        <a th:href="@{/guests/list}" class="btn btn-info btn-sm">List of All Guests</a>
-    </button>
+    <a th:href="@{/guests/list}" class="btn btn-primary btn-sm">List of All Guests</a>
     <br><br>
-    <button>
-        <a th:href="@{/rooms/list}" class="btn btn-info btn-sm">List of All Rooms</a>
-    </button>
+    <a th:href="@{/rooms/list}" class="btn btn-primary btn-sm">List of All Rooms</a>
 </div>
-
-
 
 </body>
 </html>
