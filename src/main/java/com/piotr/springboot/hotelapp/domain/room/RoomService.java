@@ -1,5 +1,4 @@
 package com.piotr.springboot.hotelapp.domain.room;
-
 import com.piotr.springboot.hotelapp.domain.reservation.Reservation;
 import com.piotr.springboot.hotelapp.domain.reservation.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;

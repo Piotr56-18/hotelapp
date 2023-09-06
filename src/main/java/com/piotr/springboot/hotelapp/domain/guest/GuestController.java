@@ -66,29 +66,4 @@ public class GuestController {
     public String listGuests(Model model){
         return findPaginated(1, "lastName", "asc", model);//default sorting
     }
-    /* Without pagination
-    @GetMapping("/list")
-    public String listGuests(Model model){
-        List<Guest> guests = guestService.findAll();
-        model.addAttribute("guests", guests);
-        return "list-guests";
-    }
-     // Without soring
-    @GetMapping("/list")
-    public String listGuests(Model model){
-        return findPaginated(1,model);
-    }
-    // Without sorting
-    @GetMapping("/list/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model){
-        int pageSize = 4;
-        Page<Guest> page = guestService.findPaginated(pageNo,pageSize);
-        List<Guest>guests = page.getContent();
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("guests", guests);
-        return "list-guests";
-    }
-     */
 }

@@ -1,5 +1,4 @@
 package com.piotr.springboot.hotelapp.domain.room;
-
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -96,28 +95,4 @@ public class RoomController {
     public String listRooms(Model model){
         return findPaginated(1,"number", "asc", model);
     }
-    /*
-    @GetMapping("/list")
-    public String listRooms(Model model){
-        List<Room> rooms = roomService.findAll();
-        model.addAttribute("rooms", rooms);
-        return "list-rooms";
-    }
-
-    @GetMapping("/list")
-    public String listRooms(Model model){
-        return findPaginated(1,model);
-    }
-    @GetMapping("/list/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model){
-        int pageSize = 5;
-        Page<Room>page = roomService.findPaginated(pageNo,pageSize);
-        List<Room>rooms = page.getContent();
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("rooms", rooms);
-        return "list-rooms";
-    }
-    */
 }

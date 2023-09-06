@@ -1,5 +1,4 @@
 package com.piotr.springboot.hotelapp.util;
-
 import com.piotr.springboot.hotelapp.domain.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,21 +52,4 @@ public class SecurityConfiguration {
                 .exceptionHandling(configurer->configurer.accessDeniedPage("/access-denied"));
         return httpSecurity.build();
     }
-     /*
-    @Bean
-    public InMemoryUserDetailsManager userDetailsManager(){
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password("{noop}admin")
-                .roles("ADMIN", "USER")
-                .build();
-        UserDetails user = User.builder()
-                .username("user")
-                .password("{noop}user")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(admin, user);
-    }
-     */
-
 }

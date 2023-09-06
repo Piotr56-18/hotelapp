@@ -88,29 +88,4 @@ public class ReservationController {
         model.addAttribute("reservations", reservations);
         return "list-reservations";
     }
-    /*
-    @GetMapping("/list")
-    public String listReservations(Model model){
-        List<Reservation> reservations = reservationService.findAll();
-        model.addAttribute("reservations", reservations);
-        return "list-reservations";
-    }
-
-    @GetMapping("/list")
-    public String listReservations(Model model){
-        return findPaginated(1,model);
-    }
-
-    @GetMapping("/list/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model){
-        int pageSize = 3;
-        Page<Reservation> page = reservationService.findPaginated(pageNo,pageSize);
-        List<Reservation>reservations = page.getContent();
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("reservations", reservations);
-        return "list-reservations";
-    }
-     */
 }

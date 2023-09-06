@@ -1,8 +1,6 @@
 package com.piotr.springboot.hotelapp.domain.user;
-
 import com.piotr.springboot.hotelapp.domain.role.Role;
 import jakarta.persistence.*;
-
 import java.util.Collection;
 
 @Entity

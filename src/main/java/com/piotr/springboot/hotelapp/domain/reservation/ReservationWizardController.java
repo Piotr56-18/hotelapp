@@ -1,5 +1,4 @@
 package com.piotr.springboot.hotelapp.domain.reservation;
-
 import com.piotr.springboot.hotelapp.domain.guest.Guest;
 import com.piotr.springboot.hotelapp.domain.guest.GuestService;
 import com.piotr.springboot.hotelapp.domain.room.Room;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
-
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;

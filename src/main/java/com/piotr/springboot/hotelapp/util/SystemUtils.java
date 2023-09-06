@@ -1,7 +1,5 @@
 package com.piotr.springboot.hotelapp.util;
-
 import java.time.format.DateTimeFormatter;
-
 public class SystemUtils {
     //Gender
     public static final String MALE = "Male";

@@ -1,5 +1,4 @@
 package com.piotr.springboot.hotelapp.util;
-
 import com.piotr.springboot.hotelapp.domain.user.User;
 import com.piotr.springboot.hotelapp.domain.user.UserService;
 import com.piotr.springboot.hotelapp.domain.user.WebUser;

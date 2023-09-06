@@ -1,5 +1,4 @@
 package com.piotr.springboot.hotelapp.util;
-
 import com.piotr.springboot.hotelapp.domain.room.Room;
 import com.piotr.springboot.hotelapp.domain.room.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
